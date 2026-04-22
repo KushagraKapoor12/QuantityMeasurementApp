@@ -2,14 +2,19 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        QuantityLength q1 = new QuantityLength(1.0, LengthUnit.FEET);
-        QuantityLength q2 = new QuantityLength(12.0, LengthUnit.INCH);
+        System.out.println(
+                new QuantityLength(1.0, LengthUnit.YARD)
+                        .equals(new QuantityLength(3.0, LengthUnit.FEET))
+        );
 
-        System.out.println("Feet vs Inches: " + q1.equals(q2));
+        System.out.println(
+                new QuantityLength(1.0, LengthUnit.YARD)
+                        .equals(new QuantityLength(36.0, LengthUnit.INCH))
+        );
 
-        QuantityLength q3 = new QuantityLength(1.0, LengthUnit.INCH);
-        QuantityLength q4 = new QuantityLength(1.0, LengthUnit.INCH);
-
-        System.out.println("Inch vs Inch: " + q3.equals(q4));
+        System.out.println(
+                new QuantityLength(1.0, LengthUnit.CENTIMETER)
+                        .equals(new QuantityLength(0.393701, LengthUnit.INCH))
+        );
     }
 }
