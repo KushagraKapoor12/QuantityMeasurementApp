@@ -2,19 +2,16 @@ public class QuantityMeasurementApp {
 
     public static void main(String[] args) {
 
-        QuantityLength q1 = new QuantityLength(1.0, LengthUnit.FEET);
-        QuantityLength q2 = new QuantityLength(12.0, LengthUnit.INCH);
+        QuantityLength a = new QuantityLength(1.0, LengthUnit.FEET);
+        QuantityLength b = new QuantityLength(12.0, LengthUnit.INCH);
 
-        System.out.println(q1.add(q2)); // 2 feet
+        System.out.println(a.add(b, LengthUnit.FEET));   // 2 feet
+        System.out.println(a.add(b, LengthUnit.INCH));   // 24 inches
+        System.out.println(a.add(b, LengthUnit.YARD));   // ~0.667 yard
 
-        QuantityLength q3 = new QuantityLength(12.0, LengthUnit.INCH);
-        QuantityLength q4 = new QuantityLength(1.0, LengthUnit.FEET);
+        QuantityLength c = new QuantityLength(36.0, LengthUnit.INCH);
+        QuantityLength d = new QuantityLength(1.0, LengthUnit.YARD);
 
-        System.out.println(q3.add(q4)); // 24 inches
-
-        QuantityLength q5 = new QuantityLength(1.0, LengthUnit.YARD);
-        QuantityLength q6 = new QuantityLength(3.0, LengthUnit.FEET);
-
-        System.out.println(q5.add(q6)); // 2 yards
+        System.out.println(c.add(d, LengthUnit.FEET));   // 6 feet
     }
 }
