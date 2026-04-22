@@ -1,17 +1,53 @@
-public class QuantityMeasurementApp {
+public class QuantityLength {
 
-    public static void main(String[] args) {
+    private final double value;
+    private final LengthUnit unit;
 
-        QuantityLength a = new QuantityLength(1.0, LengthUnit.FEET);
-        QuantityLength b = new QuantityLength(12.0, LengthUnit.INCH);
+    public QuantityLength(double value, LengthUnit unit) {
+        if (unit == null || !Double.isFinite(value)) {
+            throw new IllegalArgumentException("Invalid input");
+        }
+        this.value = value;
+        this.unit = unit;
+    }
 
-        System.out.println(a.add(b, LengthUnit.FEET));   // 2 feet
-        System.out.println(a.add(b, LengthUnit.INCH));   // 24 inches
-        System.out.println(a.add(b, LengthUnit.YARD));   // ~0.667 yard
+    // 🔹 equals
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
 
-        QuantityLength c = new QuantityLength(36.0, LengthUnit.INCH);
-        QuantityLength d = new QuantityLength(1.0, LengthUnit.YARD);
+        if (!(obj instanceof QuantityLength)) return false;
 
-        System.out.println(c.add(d, LengthUnit.FEET));   // 6 feet
+        QuantityLength other = (QuantityLength) obj;
+
+        double thisBase = this.unit.convertToBaseUnit(this.value);
+        double otherBase = other.unit.convertToBaseUnit(other.value);
+
+        return Double.compare(thisBase, otherBase) == 0;
+    }
+
+    // 🔹 convert
+    public QuantityLength convertTo(LengthUnit targetUnit) {
+        double base = this.unit.convertToBaseUnit(this.value);
+        double converted = targetUnit.convertFromBaseUnit(base);
+        return new QuantityLength(converted, targetUnit);
+    }
+
+    // 🔹 add (UC7)
+    public QuantityLength add(QuantityLength other, LengthUnit targetUnit) {
+
+        double base1 = this.unit.convertToBaseUnit(this.value);
+        double base2 = other.unit.convertToBaseUnit(other.value);
+
+        double sum = base1 + base2;
+
+        double result = targetUnit.convertFromBaseUnit(sum);
+
+        return new QuantityLength(result, targetUnit);
+    }
+
+    @Override
+    public String toString() {
+        return value + " " + unit;
     }
 }
