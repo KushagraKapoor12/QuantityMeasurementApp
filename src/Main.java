@@ -3,18 +3,19 @@ public class QuantityMeasurementApp {
     public static void main(String[] args) {
 
         System.out.println(
-                new QuantityLength(1.0, LengthUnit.YARD)
-                        .equals(new QuantityLength(3.0, LengthUnit.FEET))
+                QuantityLength.convert(1.0, LengthUnit.FEET, LengthUnit.INCH)
         );
 
         System.out.println(
-                new QuantityLength(1.0, LengthUnit.YARD)
-                        .equals(new QuantityLength(36.0, LengthUnit.INCH))
+                QuantityLength.convert(3.0, LengthUnit.YARD, LengthUnit.FEET)
         );
 
         System.out.println(
-                new QuantityLength(1.0, LengthUnit.CENTIMETER)
-                        .equals(new QuantityLength(0.393701, LengthUnit.INCH))
+                QuantityLength.convert(36.0, LengthUnit.INCH, LengthUnit.YARD)
+        );
+
+        System.out.println(
+                QuantityLength.convert(1.0, LengthUnit.CENTIMETER, LengthUnit.INCH)
         );
     }
 }
