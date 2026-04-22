@@ -1,53 +1,29 @@
-public class QuantityLength {
+public class QuantityMeasurementApp {
 
-    private final double value;
-    private final LengthUnit unit;
+    public static void main(String[] args) {
 
-    public QuantityLength(double value, LengthUnit unit) {
-        if (unit == null || !Double.isFinite(value)) {
-            throw new IllegalArgumentException("Invalid input");
-        }
-        this.value = value;
-        this.unit = unit;
-    }
+        // ✅ equality
+        System.out.println(
+                new QuantityWeight(1.0, WeightUnit.KILOGRAM)
+                        .equals(new QuantityWeight(1000.0, WeightUnit.GRAM))
+        );
 
-    // 🔹 equals
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) return true;
+        // ✅ conversion
+        System.out.println(
+                new QuantityWeight(1.0, WeightUnit.KILOGRAM)
+                        .convertTo(WeightUnit.POUND)
+        );
 
-        if (!(obj instanceof QuantityLength)) return false;
+        // ✅ addition
+        System.out.println(
+                new QuantityWeight(1.0, WeightUnit.KILOGRAM)
+                        .add(new QuantityWeight(1000.0, WeightUnit.GRAM))
+        );
 
-        QuantityLength other = (QuantityLength) obj;
-
-        double thisBase = this.unit.convertToBaseUnit(this.value);
-        double otherBase = other.unit.convertToBaseUnit(other.value);
-
-        return Double.compare(thisBase, otherBase) == 0;
-    }
-
-    // 🔹 convert
-    public QuantityLength convertTo(LengthUnit targetUnit) {
-        double base = this.unit.convertToBaseUnit(this.value);
-        double converted = targetUnit.convertFromBaseUnit(base);
-        return new QuantityLength(converted, targetUnit);
-    }
-
-    // 🔹 add (UC7)
-    public QuantityLength add(QuantityLength other, LengthUnit targetUnit) {
-
-        double base1 = this.unit.convertToBaseUnit(this.value);
-        double base2 = other.unit.convertToBaseUnit(other.value);
-
-        double sum = base1 + base2;
-
-        double result = targetUnit.convertFromBaseUnit(sum);
-
-        return new QuantityLength(result, targetUnit);
-    }
-
-    @Override
-    public String toString() {
-        return value + " " + unit;
+        // ✅ addition with target
+        System.out.println(
+                new QuantityWeight(1.0, WeightUnit.KILOGRAM)
+                        .add(new QuantityWeight(1000.0, WeightUnit.GRAM), WeightUnit.GRAM)
+        );
     }
 }
